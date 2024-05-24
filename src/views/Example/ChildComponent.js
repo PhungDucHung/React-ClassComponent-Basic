@@ -17,18 +17,17 @@ class ChildComponent extends Component {
         // let name = this.props.name;
         // let age = this.props.age;
         let { name, age , address , arrJobs } = this.props;
-        let { showJobs } = this.state;
+        let { showJobs } = this.state; 
+         // Kiểm tra showJobs là true hoặc false để ghi log
+        let check = showJobs === true ? 'showJobs = true' : 'showJobs = false';
         return (
             <>
                 { 
-                showJobs === false && 
+                showJobs === false ?
                     <div>
                         <button  onClick={()=> this.handleShowHide()  }>Show</button>
-                    </div>
-                } 
-                
-                { 
-                showJobs === true && 
+                    </div>             
+                :
                     <>
                     <div className='job-lists'>
                         {             
