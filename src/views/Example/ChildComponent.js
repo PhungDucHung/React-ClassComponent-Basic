@@ -12,6 +12,8 @@ class ChildComponent extends Component {
     });
 }
 
+
+
     render() {
         console.log('>>> check props :' , this.props);
         // let name = this.props.name;
