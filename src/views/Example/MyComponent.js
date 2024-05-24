@@ -17,13 +17,24 @@ class MyComponent extends React.Component {
     fragment
     */
 
+    addNewJob = (job) => {
+        console.log('check job from parent: ', job)
+        let currentJobs = this.state.arrJobs;
+        currentJobs.push(job);
+        this.setState({ 
+            // arrJobs: [...this.state.arrJobs, job]
+            arrJobs: currentJobs,
+        })
+    };
 
     //re-render
     render() {
         console.log('>>> call render: ', this.state)
         return (
             <>
-            <AddComponent />
+            <AddComponent 
+                addNewJob={this.addNewJob}
+            />
                
 
                 <ChildComponent
