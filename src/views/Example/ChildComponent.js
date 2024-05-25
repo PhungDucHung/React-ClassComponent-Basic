@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-
-class ChildComponent extends Component {
+import React from 'react';
+import './Demo.css'
+class ChildComponent extends React.Component {
 
    state = {
         showJobs : false 
@@ -31,7 +31,7 @@ class ChildComponent extends Component {
                 { 
                 showJobs === false ?
                     <div>
-                        <button  onClick={()=> this.handleShowHide()  }>Show</button>
+                        <button className='btn-show' onClick={()=> this.handleShowHide()  }>Show</button>
                     </div>             
                 :
                     <>
@@ -40,7 +40,8 @@ class ChildComponent extends Component {
                         arrJobs.map((item,index)=>{
                             if( item.salary >= 500 ){
                             return(
-                                <div key={item.id}>
+                                //  item.id được sử dụng làm key vì nó duy nhất cho mỗi công việc.
+                                <div key={item.id}>      
                                     {item.title} - {item.salary} $ <></> <span onClick={()=>this.handleOnclickDelete(item)}>X</span>
                                 </div>
                             )

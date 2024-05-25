@@ -29,7 +29,9 @@ class MyComponent extends React.Component {
 
     deleteAJob = (job) => {
         let currentJobs = this.state.arrJobs;
+        //  sử dụng phương thức filter để tạo ra một mảng mới, bao gồm tất cả các công việc có id khác với id của công việc được truyền vào (job). Cụ thể, filter sẽ duyệt qua từng phần tử trong mảng currentJobs và chỉ giữ lại những phần tử không có id bằng với id của job.
         currentJobs = currentJobs.filter(item => item.id !== job.id);
+        // Đầu tiên, item là { id: 1, title: 'Developer', salary: 600 }. Điều kiện item.id !== job.id sẽ là 1 !== 2, kết quả là true. Phần tử này được giữ lại trong mảng mới.Tiếp theo, item là { id: 2, title: 'Designer', salary: 500 }. Điều kiện item.id !== job.id sẽ là 2 !== 2, kết quả là false. Phần tử này không được giữ lại trong mảng mới.Cuối cùng, item là { id: 3, title: 'Manager', salary: 400 }. Điều kiện item.id !== job.id sẽ là 3 !== 2, kết quả là true. Phần tử này được giữ lại trong mảng mới.
         this.setState({
             arrJobs: currentJobs
         });
