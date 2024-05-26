@@ -4,55 +4,107 @@ import AddTodo from './AddTodo';
 import { toast } from 'react-toastify';
 
 class ListTodo extends React.Component {
-
     state = {
+        // Danh sách các công việc ban đầu
         listTodos: [
             { id: 'todo1', title: 'Doing homework' },
-            { id: 'todo2', title: 'Writting code' },
+            { id: 'todo2', title: 'Writing code' },
             { id: 'todo3', title: 'Fixing bugs' },
-        ]
+        ],
+        // Đối tượng để lưu công việc đang được chỉnh sửa
+        editTodo: {}
     }
 
+    // Thêm một công việc mới vào danh sách
     addNewTodo = (todo) => {
-        // let currentListTodo = this.state.listTodos;
-        // currentListTodo.push(todo);
-
         this.setState({
             listTodos: [...this.state.listTodos, todo],
-            // listTodos: currentListTodo
-        })
-
-        toast.success("Wow so easy!")
+        });
+        toast.success("Todo added successfully!"); // Hiển thị thông báo thành công
     }
+
+    // Xóa một công việc từ danh sách
+    handleDeleteTodo = (todo) => {
+        let currentTodos = this.state.listTodos.filter(item => item.id !== todo.id);
+        this.setState({
+            listTodos: currentTodos
+        });
+        toast.success("Deleted successfully!"); // Hiển thị thông báo thành công
+    }
+
+    // Bắt đầu chỉnh sửa một công việc
+    handleEditTodo = (todo) => {
+        this.setState({
+            editTodo: todo
+        });
+    }
+
+    // Cập nhật tiêu đề công việc đang được chỉnh sửa khi người dùng nhập liệu
+    handleOnChangeEditTodo = (event) => {
+        let editTodoCopy = { ...this.state.editTodo };
+        editTodoCopy.title = event.target.value;
+        this.setState({
+            editTodo: editTodoCopy
+        });
+    }
+
+    // Lưu công việc đã chỉnh sửa và cập nhật danh sách công việc
+    handleSaveTodo = () => {
+        let { listTodos, editTodo } = this.state;
+        let todoIndex = listTodos.findIndex(todo => todo.id === editTodo.id);
+        listTodos[todoIndex] = editTodo;
+        this.setState({
+            listTodos: listTodos,
+            editTodo: {}
+        });
+        toast.success("Updated successfully!"); // Hiển thị thông báo thành công
+    }
+
     render() {
-        let { listTodos } = this.state;
-        // let listTodos = this.state.listTodos;
+        let { listTodos, editTodo } = this.state;
+        let isEmptyObj = Object.keys(editTodo).length === 0; // Kiểm tra xem đối tượng editTodo có rỗng không
 
         return (
             <div className="list-todo-container">
-                <AddTodo
-                    addNewTodo={this.addNewTodo}
-                />
+                {/* Component để thêm một công việc mới */}
+                <AddTodo addNewTodo={this.addNewTodo} />
+
                 <div className="list-todo-content">
                     {listTodos && listTodos.length > 0 &&
                         listTodos.map((item, index) => {
                             return (
                                 <div className="todo-child" key={item.id}>
-                                    <span> {index + 1} - {item.title} </span>
-                                    <button className="edit">Edit</button>
-                                    <button className="delete">Delete</button>
+                                    {/* Nếu công việc đang được chỉnh sửa, hiển thị input để chỉnh sửa */}
+                                    {editTodo.id === item.id ?
+                                        <span>
+                                            {index + 1} - 
+                                            <input 
+                                                value={editTodo.title} 
+                                                onChange={(event) => this.handleOnChangeEditTodo(event)} 
+                                            />
+                                        </span>
+                                        :
+                                        // Nếu không, hiển thị tiêu đề công việc
+                                        <span>{index + 1} - {item.title}</span>
+                                    }
+                                    {/* Nút Edit sẽ chuyển thành Save khi công việc đang được chỉnh sửa */}
+                                    <button 
+                                        className="edit" 
+                                        onClick={() => editTodo.id === item.id ? this.handleSaveTodo() : this.handleEditTodo(item)}
+                                    >
+                                        {editTodo.id === item.id ? 'Save' : 'Edit'}
+                                    </button>
+                                    {/* Nút Delete để xóa công việc */}
+                                    <button className="delete" onClick={() => this.handleDeleteTodo(item)}>
+                                        Delete
+                                    </button>
                                 </div>
-                            )
+                            );
                         })
-
                     }
-
-
-
                 </div>
-
             </div>
-        )
+        );
     }
 }
 
