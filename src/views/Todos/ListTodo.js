@@ -46,7 +46,7 @@ class ListTodo extends React.Component {
         this.setState({
             editTodo: editTodoCopy
         });
-    }
+    } 
 
     // Lưu công việc đã chỉnh sửa và cập nhật danh sách công việc
     handleSaveTodo = () => {
@@ -62,8 +62,6 @@ class ListTodo extends React.Component {
 
     render() {
         let { listTodos, editTodo } = this.state;
-        let isEmptyObj = Object.keys(editTodo).length === 0; // Kiểm tra xem đối tượng editTodo có rỗng không
-
         return (
             <div className="list-todo-container">
                 {/* Component để thêm một công việc mới */}
@@ -71,6 +69,10 @@ class ListTodo extends React.Component {
 
                 <div className="list-todo-content">
                     {listTodos && listTodos.length > 0 &&
+                    // listTodos &&: Kiểm tra xem listTodos có phải là một giá trị truthy (không phải null hoặc undefined).
+                    // listTodos.length > 0 &&: Kiểm tra xem listTodos có chứa ít nhất một phần tử.
+                    // listTodos.map(...): Nếu cả hai điều kiện trên đều đúng, render các phần tử trong listTodos.
+                    // Toán tử && giúp đơn giản hóa việc điều kiện hóa trong JSX, cho phép chúng ta kiểm tra nhiều điều kiện trước khi quyết định render một phần tử hoặc một tập hợp các phần tử.
                         listTodos.map((item, index) => {
                             return (
                                 <div className="todo-child" key={item.id}>

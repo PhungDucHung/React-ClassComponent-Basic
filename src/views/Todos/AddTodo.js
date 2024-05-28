@@ -1,4 +1,4 @@
-import React from 'react'; // Nhập React từ thư viện react
+import React from 'react'; 
 import { toast } from 'react-toastify'; // Nhập toast từ thư viện react-toastify để hiển thị thông báo
 
 class AddTodo extends React.Component {
@@ -39,7 +39,7 @@ class AddTodo extends React.Component {
     }
 
     render() {
-        let { title } = this.state; // Lấy giá trị title từ state
+        let { title } = this.state; 
         return (
             <div className="add-todo">
                 {/* Input để nhập title của todo */}
