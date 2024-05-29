@@ -1,24 +1,47 @@
-import logo from './logo.svg'; // Nhập logo từ tệp logo.svg
-import './App.scss'; // Nhập các kiểu CSS từ tệp App.scss
-import MyComponent from './Example/MyComponent.js'; // Nhập MyComponent từ tệp MyComponent.js
-import ListTodo from './Todos/ListTodo'; // Nhập ListTodo từ tệp ListTodo
-import { ToastContainer, toast } from 'react-toastify'; // Nhập ToastContainer và toast từ thư viện react-toastify
-import 'react-toastify/dist/ReactToastify.css'; // Nhập các kiểu CSS của react-toastify
+import logo from './logo.svg'; 
+import './App.scss'; 
+import MyComponent from './Example/MyComponent.js'; 
+import ListTodo from './Todos/ListTodo'; 
+import { ToastContainer, toast } from 'react-toastify'; 
+import 'react-toastify/dist/ReactToastify.css'; 
 
-/**
- * 2 components: class component / function component ( function, arrow)
- * JSX
- */
+
+import Nav from './Nav/Nav.js';
+import Home from './Example/Home';
+import {
+  BrowserRouter ,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+
 function App() {
   // const App = () => {
+
   return (
+    <BrowserRouter>
     <div className="App">
       <header className="App-header">
+      <Nav></Nav>
         <img src={logo} className="App-logo" alt="logo" /> {/* Hiển thị logo */}
-        {/* <MyComponent /> */}
-        <ListTodo /> {/* Hiển thị component ListTodo */}
+       
+        
+
+        <Switch>
+          <Route path="/" exact>
+            <Home />
+          </Route>
+          <Route path="/Todo">
+            <ListTodo /> 
+          </Route>
+          <Route path="/about">
+             <MyComponent />
+          </Route>
+        </Switch>
 
       </header>
+      
+
 
       <ToastContainer
         position="top-right" // Vị trí của ToastContainer ở góc trên bên phải
@@ -32,6 +55,7 @@ function App() {
         pauseOnHover // Tạm dừng thông báo khi di chuột qua
       />
     </div>
+    </BrowserRouter>
   );
 }
 
