@@ -5,9 +5,10 @@ import ListTodo from './Todos/ListTodo';
 import { ToastContainer, toast } from 'react-toastify'; 
 import 'react-toastify/dist/ReactToastify.css'; 
 import ListUser from './Users/ListUser.js';
-
 import Nav from './Nav/Nav.js';
-import Home from './Example/Home';
+import Home from './Home.js';
+import DetailUser from './Users/DetailUser.js';
+
 import {
   BrowserRouter ,
   Switch,
@@ -25,8 +26,6 @@ function App() {
       <Nav></Nav>
         <img src={logo} className="App-logo" alt="logo" /> {/* Hiển thị logo */}
        
-        
-
         <Switch>
           <Route path="/" exact>
             <Home />
@@ -37,8 +36,11 @@ function App() {
           <Route path="/about">
              <MyComponent />
           </Route>
-          <Route path="/user">
+          <Route path="/user" exact>
              <ListUser />
+          </Route>
+          <Route path="/user/:id">          {/* Dấu : để báo đây là param*/}
+             <DetailUser />
           </Route>
 
         </Switch>
